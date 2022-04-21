@@ -1,13 +1,24 @@
 <script>
 	import { MetaTags } from 'svelte-meta-tags';
 	import Container from '../components/Container.svelte';
+	import { nanoid } from 'nanoid';
+	import { goto } from '$app/navigation';
 
+	const LOBBY_ID = localStorage.getItem('lobbyID');
 	const SLOGAN = 'Get anonymous message or feedback from your friends.';
+
 	let username;
 	let hasError = false;
+	let lobbyID;
+
+	if (LOBBY_ID) {
+		goto(`/lobby/${LOBBY_ID}`);
+	}
 
 	const createPage = async () => {
-		console.log('Ok');
+		lobbyID = nanoid();
+		await goto(`/lobby/${lobbyID}`);
+		localStorage.setItem('lobbyID', lobbyID);
 	};
 
 	$: username ? (hasError = false) : (hasError = true);
@@ -24,7 +35,7 @@
 			<h1 class="text-4xl font-bold leading-relaxed mb-8">
 				Get anonymous message or feedback from your friends.
 			</h1>
-			<form on:click|preventDefault={createPage}>
+			<form on:submit|preventDefault={createPage}>
 				<input
 					type="text"
 					class="p-4 w-full border-2 mb-4 rounded-md border-primary outline-none"
@@ -58,7 +69,7 @@
 						target="_blank"
 						href="https://twitter.com/share?text={SLOGAN}&url=https://isimsiz.vercel.app"
 					>
-						<img class="w-10" src="/images/twitter.svg" alt="Facebook" />
+						<img class="w-10" src="/images/twitter.svg" alt="Twitter" />
 					</a>
 				</li>
 				<li class="mr-5">
@@ -67,7 +78,7 @@
 						href="whatsapp://send?text={SLOGAN}%0Ahttps://isimsiz.vercel.app"
 						data-action="share/whatsapp/share"
 					>
-						<img class="w-10" src="/images/whatsapp.svg" alt="Facebook" />
+						<img class="w-10" src="/images/whatsapp.svg" alt="Whatsapp" />
 					</a>
 				</li>
 			</ul>
