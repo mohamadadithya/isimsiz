@@ -1,7 +1,16 @@
 <script>
 	import { MetaTags } from 'svelte-meta-tags';
 	import Container from '../components/Container.svelte';
-	import Navbar from '../components/Navbar.svelte';
+
+	const SLOGAN = 'Get anonymous message or feedback from your friends.';
+	let username;
+	let hasError = false;
+
+	const createPage = async () => {
+		console.log('Ok');
+	};
+
+	$: username ? (hasError = false) : (hasError = true);
 </script>
 
 <MetaTags
@@ -9,6 +18,59 @@
 	description="Isimsiz is a secret message book. Get anonymous message or feedback from your friends."
 />
 
-<Container classes="grid place-content-center h-screen">
-	<Navbar />
-</Container>
+<section class="pt-24 md:pt-0 md:grid place-items-center h-screen">
+	<Container classes="max-w-2xl">
+		<div class="flex flex-col justify-center p-8 shadow-lg bg-slate-100 rounded-xl mb-8">
+			<h1 class="text-4xl font-bold leading-relaxed mb-8">
+				Get anonymous message or feedback from your friends.
+			</h1>
+			<form on:click|preventDefault={createPage}>
+				<input
+					type="text"
+					class="p-4 w-full border-2 mb-4 rounded-md border-primary outline-none"
+					id="username"
+					autocomplete="off"
+					placeholder="Enter your name"
+					bind:value={username}
+				/>
+				<button
+					class="py-3 w-full bg-primary text-white rounded-md {hasError
+						? 'opacity-80 disabled:cursor-not-allowed'
+						: 'opacity-100'}"
+					type="submit"
+					disabled={hasError}>Register</button
+				>
+			</form>
+		</div>
+		<div class="flex justify-center items-center flex-col">
+			<h2 class="mb-6">Share this site to your friends</h2>
+			<ul class="flex items-center">
+				<li class="mr-5">
+					<a
+						target="_blank"
+						href="https://www.facebook.com/sharer/sharer.php?u=https://isimsiz.vercel.app"
+					>
+						<img class="w-10" src="/images/facebook.svg" alt="Facebook" />
+					</a>
+				</li>
+				<li class="mr-5">
+					<a
+						target="_blank"
+						href="https://twitter.com/share?text={SLOGAN}&url=https://isimsiz.vercel.app"
+					>
+						<img class="w-10" src="/images/twitter.svg" alt="Facebook" />
+					</a>
+				</li>
+				<li class="mr-5">
+					<a
+						target="_blank"
+						href="whatsapp://send?text={SLOGAN}%0Ahttps://isimsiz.vercel.app"
+						data-action="share/whatsapp/share"
+					>
+						<img class="w-10" src="/images/whatsapp.svg" alt="Facebook" />
+					</a>
+				</li>
+			</ul>
+		</div>
+	</Container>
+</section>
