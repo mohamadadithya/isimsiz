@@ -1,10 +1,12 @@
 <script>
+	import { lobbyIDStore } from './../stores/lobbyStore.js';
 	import { MetaTags } from 'svelte-meta-tags';
 	import Container from '../components/Container.svelte';
 	import { nanoid } from 'nanoid';
 	import { goto } from '$app/navigation';
+	import { get } from 'svelte/store';
 
-	const LOBBY_ID = localStorage.getItem('lobbyID');
+	const LOBBY_ID = get(lobbyIDStore);
 	const SLOGAN = 'Get anonymous message or feedback from your friends.';
 
 	let username;
@@ -18,7 +20,7 @@
 	const createPage = async () => {
 		lobbyID = nanoid();
 		await goto(`/lobby/${lobbyID}`);
-		localStorage.setItem('lobbyID', lobbyID);
+		lobbyIDStore.set(lobbyID);
 	};
 
 	$: username ? (hasError = false) : (hasError = true);

@@ -6,6 +6,10 @@
 </script>
 
 <script>
+	import { MetaTags } from 'svelte-meta-tags';
+
 	export let lobbyID;
-	console.log(lobbyID);
+	let username = 'Joker';
 </script>
+
+<MetaTags title="{username}'s lobby | Isimsiz" />
