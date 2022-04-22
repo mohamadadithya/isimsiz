@@ -1,5 +1,5 @@
 <script>
-	import { lobbyIDStore } from './../stores/lobbyStore.js';
+	import { hasLobby, lobbyIDStore } from './../stores/lobbyStore.js';
 	import { MetaTags } from 'svelte-meta-tags';
 	import Container from '../components/Container.svelte';
 	import { nanoid } from 'nanoid';
@@ -21,6 +21,7 @@
 		lobbyID = nanoid();
 		await goto(`/lobby/${lobbyID}`);
 		lobbyIDStore.set(lobbyID);
+		hasLobby.set(true);
 	};
 
 	$: username ? (hasError = false) : (hasError = true);
