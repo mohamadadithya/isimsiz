@@ -1,12 +1,42 @@
 <script>
-	export let LOBBY_ID;
+	export let messageID, comments;
 
 	let comment;
 	let hasNull = false;
 
+	let filteredComments = comments.data.filter(
+		(comment) => comment.attributes.message_id == messageID
+	);
+
+	const getComments = async () => {
+		const response = await fetch(`http://localhost:1337/api/comments`);
+		const comments = await response.json();
+		filteredComments = await comments.data.filter(
+			(comment) => comment.attributes.message_id == messageID
+		);
+	};
+
 	const sendComment = async () => {
 		if (comment) {
-			console.log('Ok');
+			try {
+				await fetch(`http://localhost:1337/api/comments`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						data: {
+							comment,
+							message_id: messageID
+						}
+					})
+				});
+			} catch (error) {
+				console.log(error.message);
+			} finally {
+				comment = '';
+				getComments();
+			}
 		} else {
 			comment = '';
 		}
@@ -34,3 +64,10 @@
 		</button>
 	</div>
 </form>
+<div class="mt-4">
+	{#each filteredComments as comment}
+		<p class="bg-gray-300 px-4 py-2 rounded-lg mb-2.5 text-gray-500">
+			{comment.attributes.comment}
+		</p>
+	{/each}
+</div>

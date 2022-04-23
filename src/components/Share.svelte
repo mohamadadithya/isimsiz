@@ -1,20 +1,11 @@
 <script>
-	import { Notyf } from 'notyf';
-	import 'notyf/notyf.min.css';
-
 	export let lobbyID;
 	export let username;
 	let urlText;
 
 	const copyURL = () => {
 		navigator.clipboard.writeText(urlText);
-		const notyf = new Notyf({
-			dismissible: true
-		});
-		notyf.success({
-			message: `Your lobby's url has been copied to clipboard.`,
-			background: '#151515'
-		});
+		console.log(`Your lobby's url has been copied to clipboard.`);
 	};
 </script>
 

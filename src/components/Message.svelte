@@ -1,20 +1,22 @@
 <script>
-	import { lobbyIDStore } from '../stores/lobbyStore';
-	import { get } from 'svelte/store';
 	import Comment from './Comment.svelte';
 
-	export let message = `What's your favorite color?`;
+	export let message;
+	export let comments;
 
-	const LOBBY_ID = get(lobbyIDStore);
+	let messageID = message.id;
+	let hint = message.attributes.hint;
 </script>
 
 <div class="p-4 shadow-md rounded-lg mb-5">
-	<div class="flex justify-between items-center">
-		<p>{message}</p>
+	<div class="flex justify-between items-center mb-1">
+		<p>{message.attributes.message}</p>
 		<button>
 			<i class="far fa-fw fa-times" />
 		</button>
 	</div>
-	<Comment {LOBBY_ID} />
-	<p class="bg-gray-300 px-4 py-2 rounded-lg mb-2 mt-4 text-gray-500">Black</p>
+	{#if hint}
+		<p class="text-xs text-yellow-600">Hint: {message.attributes.hint}</p>
+	{/if}
+	<Comment {messageID} {comments} />
 </div>

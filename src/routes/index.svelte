@@ -20,8 +20,31 @@
 	const createPage = async () => {
 		if (username) {
 			lobbyID = nanoid();
+			// Set data to lobbyStore
 			lobbyIDStore.set(lobbyID);
 			hasLobby.set(true);
+
+			// Send data to API
+			try {
+				const request = await fetch(`http://localhost:1337/api/lobbies`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						data: {
+							username,
+							lobby_id: lobbyID
+						}
+					})
+				});
+				const response = await request.json();
+				console.log(response);
+			} catch (error) {
+				console.log(error.message);
+			} finally {
+				console.log('Lobby created');
+			}
 			await goto(`/lobby/${lobbyID}`);
 		} else {
 			username = '';
