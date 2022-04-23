@@ -18,10 +18,14 @@
 	}
 
 	const createPage = async () => {
-		lobbyID = nanoid();
-		await goto(`/lobby/${lobbyID}`);
-		lobbyIDStore.set(lobbyID);
-		hasLobby.set(true);
+		if (username) {
+			lobbyID = nanoid();
+			lobbyIDStore.set(lobbyID);
+			hasLobby.set(true);
+			await goto(`/lobby/${lobbyID}`);
+		} else {
+			username = '';
+		}
 	};
 
 	$: username ? (hasError = false) : (hasError = true);

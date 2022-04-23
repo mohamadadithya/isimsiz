@@ -26,6 +26,7 @@
   "type": "module",
   "dependencies": {
     "nanoid": "^3.3.3",
+    "notyf": "^3.10.0",
     "svelte-local-storage-store": "^0.2.6",
     "svelte-meta-tags": "^2.5.1"
   }

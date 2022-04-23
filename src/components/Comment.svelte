@@ -5,7 +5,11 @@
 	let hasNull = false;
 
 	const sendComment = async () => {
-		comment = '';
+		if (comment) {
+			console.log('Ok');
+		} else {
+			comment = '';
+		}
 	};
 
 	$: comment ? (hasNull = false) : (hasNull = true);
@@ -26,7 +30,7 @@
 			type="submit"
 			class={hasNull ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}
 		>
-			<i class="fas fa-fw fa-paper-plane text-xl text-gray-300" />
+			<i class="fas fa-fw fa-paper-plane text-xl text-gray-400" />
 		</button>
 	</div>
 </form>
