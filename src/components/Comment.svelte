@@ -1,19 +1,16 @@
 <script>
-	export let messageID, comments;
+	export let messageID;
+	export let filteredComments;
 
 	let comment;
 	let hasNull = false;
 
-	let filteredComments = comments.data.filter(
-		(comment) => comment.attributes.message_id == messageID
-	);
+	let loadedComments = filteredComments;
 
 	const getComments = async () => {
 		const response = await fetch(`http://localhost:1337/api/comments`);
 		const comments = await response.json();
-		filteredComments = await comments.data.filter(
-			(comment) => comment.attributes.message_id == messageID
-		);
+		loadedComments = comments.data.filter((comment) => comment.attributes.message_id == messageID);
 	};
 
 	const sendComment = async () => {
@@ -65,7 +62,7 @@
 	</div>
 </form>
 <div class="mt-4">
-	{#each filteredComments as comment}
+	{#each loadedComments as comment}
 		<p class="bg-gray-300 px-4 py-2 rounded-lg mb-2.5 text-gray-500">
 			{comment.attributes.comment}
 		</p>
