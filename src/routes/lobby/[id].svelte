@@ -27,8 +27,12 @@
 
 	let userHasLobby = get(hasLobby);
 
-	let filteredLobby = lobbies.data.filter((lobby) => lobby.attributes.lobby_id == lobbyID);
-	let filteredMessages = messages.data.filter((message) => message.attributes.lobby_id == lobbyID);
+	let filteredLobby = lobbies.data
+		.reverse()
+		.filter((lobby) => lobby.attributes.lobby_id == lobbyID);
+	let filteredMessages = messages.data
+		.reverse()
+		.filter((message) => message.attributes.lobby_id == lobbyID);
 	const lobby = filteredLobby[0];
 	let username = lobby.attributes.username;
 </script>
