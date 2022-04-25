@@ -61,7 +61,7 @@
 	description="Isimsiz is a secret message book. Get anonymous message or feedback from your friends."
 />
 
-<section class="pt-24 pb-10 md:pb-0 md:pt-0 md:grid place-items-center h-screen">
+<section class="pt-24 pb-20 md:pb-0 md:pt-0 md:grid place-items-center h-screen">
 	<Container classes="max-w-2xl">
 		<div class="flex flex-col justify-center p-8 shadow-lg bg-slate-100 rounded-xl mb-8">
 			<h1 class="text-3xl md:text-4xl font-bold leading-relaxed mb-8">
