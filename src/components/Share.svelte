@@ -1,11 +1,16 @@
 <script>
-	export let lobbyID;
-	export let username;
-	let urlText;
+	import Toast from './Toast.svelte';
+
+	export let lobbyID, username;
+	let urlText,
+		hasCopied = false;
 
 	const copyURL = () => {
 		navigator.clipboard.writeText(urlText);
-		console.log(`Your lobby's url has been copied to clipboard.`);
+		hasCopied = true;
+		setTimeout(() => {
+			hasCopied = false;
+		}, 3000);
 	};
 </script>
 
@@ -68,6 +73,10 @@
 		</li>
 	</ul>
 </div>
+
+{#if hasCopied}
+	<Toast text="Your lobby's url has been copied to clipboard." />
+{/if}
 
 <style>
 	.instagram-button {

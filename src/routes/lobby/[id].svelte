@@ -18,15 +18,12 @@
 	import { get } from 'svelte/store';
 	import { hasLobby } from '../../stores/lobbyStore';
 	import MessageForm from '../../components/MessageForm.svelte';
+
 	export let lobbyID, lobbies;
 
 	let userHasLobby = get(hasLobby);
 
-	let filteredLobby = lobbies.data
-		.reverse()
-		.filter((lobby) => lobby.attributes.lobby_id == lobbyID);
-
-	const lobby = filteredLobby[0];
+	const lobby = lobbies.data.find((lobby) => lobby.attributes.lobby_id == lobbyID);
 	let username = lobby.attributes.username;
 </script>
 
@@ -42,7 +39,8 @@
 		<a
 			href="/message/{lobbyID}"
 			class="w-full block py-3 bg-transparent hover:bg-primary border border-primary text-black hover:text-white rounded-lg text-center"
-			role="button">See {userHasLobby ? 'my' : `${username}'s`} messages</a
+			role="button"
+			><i class="far fa-fw fa-envelope mr-1.5" /> See {userHasLobby ? 'my' : `${username}'s`} messages</a
 		>
 	</Container>
 </section>

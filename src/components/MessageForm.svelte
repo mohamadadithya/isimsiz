@@ -1,16 +1,17 @@
 <script>
-	export let username;
-	export let lobbyID;
+	import Toast from './Toast.svelte';
 
-	let message;
-	let hint;
-	let hasNull = false;
-	let form;
+	export let username, lobbyID;
+
+	let message,
+		hint,
+		hasNull = false,
+		hasSent = false;
 
 	const sendMessage = async () => {
 		if (message) {
 			try {
-				const request = await fetch(`http://localhost:1337/api/messages`, {
+				await fetch(`http://localhost:1337/api/messages`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -23,13 +24,15 @@
 						}
 					})
 				});
-				const response = await request.json();
-				console.log(response);
-				form.reset();
+				message = '';
+				hint = '';
 			} catch (error) {
 				console.log(`Sorry, your message hasn't sent, something went wrong.`);
 			} finally {
-				console.log(`Your message has been sent to ${username}`);
+				hasSent = true;
+				setTimeout(() => {
+					hasSent = false;
+				}, 3000);
 			}
 		} else {
 			message = '';
@@ -42,7 +45,7 @@
 <div>
 	<h1 class="text-2xl font-bold mb-1">Send secret message to {username}</h1>
 	<p class="text-gray-500 mb-5">{username} will never know who sent this message.</p>
-	<form class="mb-10" on:submit|preventDefault={sendMessage} bind:this={form}>
+	<form class="mb-10" on:submit|preventDefault={sendMessage}>
 		<textarea
 			class="border border-gray-300 rounded-lg p-4 w-full mb-2 h-32 outline-none"
 			name="message"
@@ -65,3 +68,6 @@
 		>
 	</form>
 </div>
+{#if hasSent}
+	<Toast text="Your message has been sent to {username}" />
+{/if}
