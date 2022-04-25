@@ -1,14 +1,18 @@
 <script>
+	import { hasLobby, lobbyIDStore } from '../stores/lobbyStore';
+	import { get } from 'svelte/store';
 	import Container from './Container.svelte';
 
 	let hasOpen = false;
+	const userHasLobby = get(hasLobby);
+	const lobbyID = get(lobbyIDStore);
 </script>
 
 <nav class="bg-white fixed top-0 w-full py-3">
 	<Container classes="md:flex items-center justify-between">
 		<header class="flex items-center justify-between">
 			<a
-				href="/"
+				href={userHasLobby ? `/lobby/${lobbyID}` : '/'}
 				class="flex items-center font-bold text-2xl font-bebas-neue tracking-widest"
 				aria-label="Isimsiz"
 			>
@@ -20,9 +24,6 @@
 			</button>
 		</header>
 		<ul class="md:flex {hasOpen ? 'block' : 'hidden'} text-gray-500 pt-5 md:pt-0">
-			<li class="py-2 md:mr-6">
-				<a class="hover:text-black" href="/about">About</a>
-			</li>
 			<li class="py-2 md:mr-6">
 				<a class="hover:text-black" href="/contact">Contact</a>
 			</li>
