@@ -14,9 +14,9 @@
 			<p class="mb-5">
 				At <span class="font-bold">Isimsiz</span>, accessible from https://isimsiz.vercel.app, one
 				of our main priorities is the privacy of our visitors. This Privacy Policy document contains
-				types of information that is collected and recorded by Isimsiz and how we use it. If you
-				have additional questions or require more information about our Privacy Policy, do not
-				hesitate to contact us.
+				types of information that is collected and recorded by
+				<span class="font-bold">Isimsiz</span> and how we use it. If you have additional questions or
+				require more information about our Privacy Policy, do not hesitate to contact us.
 			</p>
 			<h2 class="font-bold mb-3 text-xl">Log Files</h2>
 			<p class="mb-5">
@@ -47,9 +47,10 @@
 			<h5 class="font-bold mb-3 text-xl">Online Privacy Policy Only</h5>
 			<p class="mb-5">
 				This Privacy Policy applies only to our online activities and is valid for visitors to our
-				website with regards to the information that they shared and/or collect in Isimsiz. This
-				policy is not applicable to any information collected offline or via channels other than
-				this website.
+				website with regards to the information that they shared and/or collect in <span
+					class="font-bold">Isimsiz</span
+				>. This policy is not applicable to any information collected offline or via channels other
+				than this website.
 			</p>
 			<h6 class="font-bold mb-3 text-xl">Consent</h6>
 			<p>

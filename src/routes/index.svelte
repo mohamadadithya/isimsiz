@@ -5,7 +5,7 @@
 	import { nanoid } from 'nanoid';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
-	import { API_TOKEN } from '../config.js';
+	import { API_TOKEN, API_URL } from '../config.js';
 
 	const LOBBY_ID = get(lobbyIDStore);
 	const SLOGAN = 'Get anonymous message or feedback from your friends.';
@@ -27,7 +27,7 @@
 
 			// Send data to API
 			try {
-				const request = await fetch(`http://localhost:1337/api/lobbies`, {
+				const request = await fetch(`${API_URL}/lobbies`, {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${API_TOKEN}`,

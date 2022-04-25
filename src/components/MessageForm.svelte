@@ -1,5 +1,5 @@
 <script>
-	import { API_TOKEN } from '../config';
+	import { API_TOKEN, API_URL } from '../config';
 	import Toast from './Toast.svelte';
 
 	export let username, lobbyID;
@@ -12,7 +12,7 @@
 	const sendMessage = async () => {
 		if (message) {
 			try {
-				await fetch(`http://localhost:1337/api/messages`, {
+				await fetch(`${API_URL}/messages`, {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${API_TOKEN}`,

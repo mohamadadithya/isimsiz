@@ -2,7 +2,7 @@
 	import Container from '../components/Container.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
 	import Toast from '../components/Toast.svelte';
-	import { API_TOKEN } from '../config';
+	import { API_TOKEN, API_URL } from '../config';
 
 	let username,
 		email,
@@ -15,7 +15,7 @@
 			(username = ''), (email = ''), (message = '');
 		} else {
 			try {
-				await fetch(`http://localhost:1337/api/contacts`, {
+				await fetch(`${API_URL}/contacts`, {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${API_TOKEN}`,
@@ -93,5 +93,5 @@
 	</Container>
 </section>
 {#if hasSent}
-	<Toast text="Your message has been sent to Developer, thanks!" />
+	<Toast text="Your message has been sent to the Developer, thanks!" />
 {/if}

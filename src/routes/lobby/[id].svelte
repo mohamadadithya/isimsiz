@@ -1,9 +1,9 @@
 <script context="module">
-	import { API_TOKEN } from '../../config';
+	import { API_TOKEN, API_URL } from '../../config';
 	export async function load({ params }) {
 		const lobbyID = params.id;
 		try {
-			const response = await fetch(`http://localhost:1337/api/lobbies`, {
+			const response = await fetch(`${API_URL}/lobbies`, {
 				headers: {
 					Authorization: `Bearer ${API_TOKEN}`
 				}

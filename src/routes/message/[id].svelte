@@ -1,5 +1,5 @@
 <script context="module">
-	import { API_TOKEN } from '../../config';
+	import { API_TOKEN, API_URL } from '../../config';
 	export async function load({ params }) {
 		let lobbyID = params.id;
 		const headers = {
@@ -7,9 +7,9 @@
 		};
 		try {
 			const [messages, comments, lobbies] = await Promise.all([
-				fetch(`http://localhost:1337/api/messages`, { headers }).then((res) => res.json()),
-				fetch(`http://localhost:1337/api/comments`, { headers }).then((res) => res.json()),
-				fetch('http://localhost:1337/api/lobbies', { headers }).then((res) => res.json())
+				fetch(`${API_URL}/messages`, { headers }).then((res) => res.json()),
+				fetch(`${API_URL}/comments`, { headers }).then((res) => res.json()),
+				fetch(`${API_URL}/lobbies`, { headers }).then((res) => res.json())
 			]);
 			return { props: { lobbyID, lobbies, messages, comments } };
 		} catch (error) {
@@ -41,7 +41,11 @@
 	let userHasLobby = get(hasLobby);
 
 	const getNewMessages = async () => {
-		const response = await fetch(`http://localhost:1337/api/messages`);
+		const response = await fetch(`${API_URL}/messages`, {
+			headers: {
+				Authorization: `Bearer ${API_TOKEN}`
+			}
+		});
 		const messages = await response.json();
 		filteredMessages = messages.data
 			.reverse()
@@ -50,16 +54,22 @@
 
 	const deleteMessage = async (messageID) => {
 		try {
-			await fetch(`http://localhost:1337/api/messages/${messageID}`, {
-				method: 'DELETE'
+			await fetch(`${API_URL}/messages/${messageID}`, {
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${API_TOKEN}`
+				}
 			});
 			const selectedComments = await comments.data.filter(
 				(comment) => comment.attributes.message_id == messageID
 			);
 			selectedComments.forEach(async (comment) => {
 				let commentID = await comment.id;
-				await fetch(`http://localhost:1337/api/comments/${commentID}`, {
-					method: 'DELETE'
+				await fetch(`${API_URL}/comments/${commentID}`, {
+					method: 'DELETE',
+					headers: {
+						Authorization: `Bearer ${API_TOKEN}`
+					}
 				});
 			});
 		} catch (error) {
