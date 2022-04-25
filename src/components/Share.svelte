@@ -1,4 +1,5 @@
 <script>
+	import SocMedButton from './SocMedButton.svelte';
 	import Toast from './Toast.svelte';
 
 	export let lobbyID, username;
@@ -32,44 +33,37 @@
 		</button>
 	</div>
 	<ul class="mt-6 text-white grid md:grid-cols-2 gap-3 mb-10">
-		<li class="bg-green-500 p-3 rounded-lg">
-			<a
-				target="_blank"
-				href="whatsapp://send?text=Share%20feedback%20about%20{username}%20anonymously.%20{username}%20will%20never%20know%20who%20sent%20the%20message.%20%F0%9F%98%8D%20*SECRET%20BOOK*%20%F0%9F%98%8D%20%20https://isimsiz.vercel.app/{lobbyID}"
-				role="button"
-				class="flex justify-center items-center"
-			>
-				<i class="fab fa-fw fa-whatsapp mr-2 text-2xl" />
-				Share to WhatsApp Status
-			</a>
+		<li>
+			<SocMedButton
+				text="Share to WhatsApp Status"
+				icon="whatsapp"
+				background="bg-green-500"
+				url="whatsapp://send?text=Share%20feedback%20about%20{username}%20anonymously.%20{username}%20will%20never%20know%20who%20sent%20the%20message.%0Ahttps://isimsiz.vercel.app/lobby/{lobbyID}"
+			/>
 		</li>
-		<li class="instagram-button p-3 rounded-lg">
-			<a target="_blank" href="/" role="button" class="flex justify-center items-center">
-				<i class="fab fa-fw fa-instagram mr-2 text-2xl" />
-				Add to Instagram Bio
-			</a>
+		<li>
+			<SocMedButton
+				text="Share as Facebook's Feed"
+				icon="facebook"
+				background="bg-blue-500"
+				url="https://www.facebook.com/sharer/sharer.php?u=https://isimsiz.vercel.app/lobby/{lobbyID}"
+			/>
 		</li>
-		<li class="bg-cyan-400 p-3 rounded-lg">
-			<a
-				target="_blank"
-				href="https://twitter.com/intent/tweet?text=Share%20feedback%20about%20{username}%20anonymously.%20{username}%20will%20never%20know%20who%20sent%20the%20message.%20%F0%9F%98%8D%20*SECRET%20BOOK*%20%F0%9F%98%8D%20%0Ahttps://isimsiz.vercel.app/{lobbyID}"
-				role="button"
-				class="flex justify-center items-center"
-			>
-				<i class="fab fa-fw fa-twitter mr-2 text-2xl" />
-				Add into Twitter's tweet
-			</a>
+		<li>
+			<SocMedButton
+				text="Share as Twitter's Tweet"
+				icon="twitter"
+				background="bg-cyan-500"
+				url="https://twitter.com/intent/tweet?text=Share%20feedback%20about%20{username}%20anonymously.%20{username}%20will%20never%20know%20who%20sent%20the%20message.%0Ahttps://isimsiz.vercel.app/lobby/{lobbyID}"
+			/>
 		</li>
-		<li class="bg-blue-500 p-3 rounded-lg">
-			<a
-				target="_blank"
-				href="fb-messenger://share?link=https://isimsiz.vercel.app/{lobbyID}"
-				role="button"
-				class="flex justify-center items-center"
-			>
-				<i class="fab fa-fw fa-facebook-messenger mr-2 text-2xl" />
-				Share to Messenger
-			</a>
+		<li>
+			<SocMedButton
+				text="Share to Messanger"
+				icon="facebook-messenger"
+				background="bg-blue-700"
+				url="fb-messenger://share?link=https://isimsiz.vercel.app/lobby/{lobbyID}"
+			/>
 		</li>
 	</ul>
 </div>
@@ -77,16 +71,3 @@
 {#if hasCopied}
 	<Toast text="Your lobby's url has been copied to clipboard." />
 {/if}
-
-<style>
-	.instagram-button {
-		background: radial-gradient(
-			circle at 30% 107%,
-			#fdf497 0%,
-			#fdf497 5%,
-			#fd5949 45%,
-			#d6249f 60%,
-			#285aeb 90%
-		);
-	}
-</style>

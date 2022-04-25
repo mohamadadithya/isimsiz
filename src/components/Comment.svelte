@@ -3,7 +3,7 @@
 	export let filteredComments;
 
 	let comment;
-	let hasNull = false;
+	let isNull = true;
 
 	let loadedComments = filteredComments;
 
@@ -39,7 +39,7 @@
 		}
 	};
 
-	$: comment ? (hasNull = false) : (hasNull = true);
+	$: comment ? (isNull = false) : (isNull = true);
 </script>
 
 <form class="mt-6" on:submit|preventDefault={sendComment}>
@@ -55,7 +55,7 @@
 		/>
 		<button
 			type="submit"
-			class={hasNull ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}
+			class={isNull ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}
 		>
 			<i class="fas fa-fw fa-paper-plane text-xl text-gray-400" />
 		</button>

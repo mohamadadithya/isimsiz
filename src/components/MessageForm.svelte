@@ -5,7 +5,7 @@
 
 	let message,
 		hint,
-		hasNull = false,
+		isNull = true,
 		hasSent = false;
 
 	const sendMessage = async () => {
@@ -39,7 +39,7 @@
 		}
 	};
 
-	$: message ? (hasNull = false) : (hasNull = true);
+	$: message ? (isNull = false) : (isNull = true);
 </script>
 
 <div>
@@ -60,11 +60,11 @@
 			bind:value={hint}
 		/>
 		<button
-			class="bg-primary {hasNull
+			class="bg-primary {isNull
 				? 'opacity-80 disabled:cursor-not-allowed'
 				: 'opacity-100'} w-full py-2 rounded-lg text-white"
 			type="submit"
-			disabled={hasNull}>Send</button
+			disabled={isNull}>Send</button
 		>
 	</form>
 </div>

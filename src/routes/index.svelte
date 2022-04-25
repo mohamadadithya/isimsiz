@@ -10,7 +10,7 @@
 	const SLOGAN = 'Get anonymous message or feedback from your friends.';
 
 	let username;
-	let hasError = false;
+	let isNull = true;
 	let lobbyID;
 
 	if (LOBBY_ID) {
@@ -51,7 +51,7 @@
 		}
 	};
 
-	$: username ? (hasError = false) : (hasError = true);
+	$: username ? (isNull = false) : (isNull = true);
 </script>
 
 <MetaTags
@@ -75,11 +75,11 @@
 					bind:value={username}
 				/>
 				<button
-					class="py-3 w-full bg-primary text-white rounded-md {hasError
+					class="py-3 w-full bg-primary text-white rounded-md {isNull
 						? 'opacity-80 disabled:cursor-not-allowed'
 						: 'opacity-100'}"
 					type="submit"
-					disabled={hasError}>Register</button
+					disabled={isNull}>Register</button
 				>
 			</form>
 		</div>
