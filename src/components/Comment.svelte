@@ -1,4 +1,6 @@
 <script>
+	import { API_TOKEN } from '../config';
+
 	export let messageID;
 	export let filteredComments;
 
@@ -8,7 +10,11 @@
 	let loadedComments = filteredComments;
 
 	const getComments = async () => {
-		const response = await fetch(`http://localhost:1337/api/comments`);
+		const response = await fetch(`http://localhost:1337/api/comments`, {
+			headers: {
+				Authorization: `Bearer ${API_TOKEN}`
+			}
+		});
 		const comments = await response.json();
 		loadedComments = comments.data.filter((comment) => comment.attributes.message_id == messageID);
 	};
@@ -19,6 +25,7 @@
 				await fetch(`http://localhost:1337/api/comments`, {
 					method: 'POST',
 					headers: {
+						Authorization: `Bearer ${API_TOKEN}`,
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({

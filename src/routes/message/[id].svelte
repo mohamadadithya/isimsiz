@@ -1,11 +1,15 @@
 <script context="module">
+	import { API_TOKEN } from '../../config';
 	export async function load({ params }) {
 		let lobbyID = params.id;
+		const headers = {
+			Authorization: `Bearer ${API_TOKEN}`
+		};
 		try {
 			const [messages, comments, lobbies] = await Promise.all([
-				fetch(`http://localhost:1337/api/messages`).then((res) => res.json()),
-				fetch(`http://localhost:1337/api/comments`).then((res) => res.json()),
-				fetch('http://localhost:1337/api/lobbies').then((res) => res.json())
+				fetch(`http://localhost:1337/api/messages`, { headers }).then((res) => res.json()),
+				fetch(`http://localhost:1337/api/comments`, { headers }).then((res) => res.json()),
+				fetch('http://localhost:1337/api/lobbies', { headers }).then((res) => res.json())
 			]);
 			return { props: { lobbyID, lobbies, messages, comments } };
 		} catch (error) {

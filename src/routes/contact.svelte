@@ -2,6 +2,7 @@
 	import Container from '../components/Container.svelte';
 	import { MetaTags } from 'svelte-meta-tags';
 	import Toast from '../components/Toast.svelte';
+	import { API_TOKEN } from '../config';
 
 	let username,
 		email,
@@ -17,6 +18,7 @@
 				await fetch(`http://localhost:1337/api/contacts`, {
 					method: 'POST',
 					headers: {
+						Authorization: `Bearer ${API_TOKEN}`,
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({

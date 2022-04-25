@@ -1,8 +1,13 @@
 <script context="module">
+	import { API_TOKEN } from '../../config';
 	export async function load({ params }) {
 		const lobbyID = params.id;
 		try {
-			const response = await fetch(`http://localhost:1337/api/lobbies`);
+			const response = await fetch(`http://localhost:1337/api/lobbies`, {
+				headers: {
+					Authorization: `Bearer ${API_TOKEN}`
+				}
+			});
 			const lobbies = await response.json();
 			return { props: { lobbyID, lobbies } };
 		} catch (error) {

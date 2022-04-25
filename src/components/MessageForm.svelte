@@ -1,4 +1,5 @@
 <script>
+	import { API_TOKEN } from '../config';
 	import Toast from './Toast.svelte';
 
 	export let username, lobbyID;
@@ -14,6 +15,7 @@
 				await fetch(`http://localhost:1337/api/messages`, {
 					method: 'POST',
 					headers: {
+						Authorization: `Bearer ${API_TOKEN}`,
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
