@@ -20,7 +20,7 @@
 
 	const createPage = async () => {
 		if (username) {
-			lobbyID = nanoid();
+			lobbyID = nanoid(9);
 			// Set data to lobbyStore
 			lobbyIDStore.set(lobbyID);
 			hasLobby.set(true);
