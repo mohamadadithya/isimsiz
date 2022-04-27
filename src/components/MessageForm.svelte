@@ -12,6 +12,7 @@
 	const sendMessage = async () => {
 		if (message) {
 			try {
+				isNull = true;
 				await fetch(`${API_URL}/messages`, {
 					method: 'POST',
 					headers: {
@@ -26,11 +27,11 @@
 						}
 					})
 				});
-				message = '';
-				hint = '';
 			} catch (error) {
 				console.log(`Sorry, your message hasn't sent, something went wrong.`);
 			} finally {
+				message = '';
+				hint = '';
 				hasSent = true;
 				setTimeout(() => {
 					hasSent = false;

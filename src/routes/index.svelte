@@ -27,7 +27,8 @@
 
 			// Send data to API
 			try {
-				const request = await fetch(`${API_URL}/lobbies`, {
+				isNull = true;
+				await fetch(`${API_URL}/lobbies`, {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${API_TOKEN}`,
@@ -40,12 +41,8 @@
 						}
 					})
 				});
-				const response = await request.json();
-				console.log(response);
 			} catch (error) {
 				console.log(error.message);
-			} finally {
-				console.log('Lobby created');
 			}
 			await goto(`/lobby/${lobbyID}`);
 		} else {
