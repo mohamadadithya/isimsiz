@@ -8,7 +8,7 @@
 	const lobbyID = get(lobbyIDStore);
 </script>
 
-<nav class="bg-white fixed top-0 w-full py-3">
+<nav class="bg-white fixed top-0 w-full py-3 shadow-md">
 	<Container classes="md:flex items-center justify-between">
 		<header class="flex items-center justify-between">
 			<a

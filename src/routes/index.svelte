@@ -1,4 +1,5 @@
 <script>
+	import Toast from './../components/Toast.svelte';
 	import { hasLobby, lobbyIDStore } from './../stores/lobbyStore.js';
 	import { MetaTags } from 'svelte-meta-tags';
 	import Container from '../components/Container.svelte';
@@ -10,9 +11,10 @@
 	const LOBBY_ID = get(lobbyIDStore);
 	const SLOGAN = 'Get anonymous message or feedback from your friends.';
 
-	let username;
-	let isNull = true;
-	let lobbyID;
+	let username,
+		isNull = true,
+		hasError = false,
+		lobbyID;
 
 	if (LOBBY_ID) {
 		goto(`/lobby/${LOBBY_ID}`);
@@ -21,14 +23,10 @@
 	const createPage = async () => {
 		if (username) {
 			lobbyID = nanoid(9);
-			// Set data to lobbyStore
-			lobbyIDStore.set(lobbyID);
-			hasLobby.set(true);
-
 			// Send data to API
 			try {
 				isNull = true;
-				await fetch(`${API_URL}/lobbies`, {
+				const request = await fetch(`${API_URL}/lobbies`, {
 					method: 'POST',
 					headers: {
 						Authorization: `Bearer ${API_TOKEN}`,
@@ -41,10 +39,21 @@
 						}
 					})
 				});
+				const response = await request.json();
+				if (response.error) {
+					hasError = true;
+					setTimeout(() => {
+						hasError = false;
+					}, 3000);
+					isNull = false;
+				} else {
+					lobbyIDStore.set(lobbyID);
+					hasLobby.set(true);
+					await goto(`/lobby/${lobbyID}`);
+				}
 			} catch (error) {
-				console.log(error.message);
+				console.log(error.status);
 			}
-			await goto(`/lobby/${lobbyID}`);
 		} else {
 			username = '';
 		}
@@ -114,3 +123,6 @@
 		</div>
 	</Container>
 </section>
+{#if hasError}
+	<Toast text="This name already has a lobby, please enter another name or alias" />
+{/if}
