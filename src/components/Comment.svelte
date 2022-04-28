@@ -4,8 +4,9 @@
 	export let messageID;
 	export let filteredComments;
 
-	let comment;
-	let isNull = true;
+	let comment,
+		isNull = true,
+		isLoading = false;
 
 	let loadedComments = filteredComments;
 
@@ -22,6 +23,7 @@
 	const sendComment = async () => {
 		if (comment) {
 			try {
+				isLoading = true;
 				await fetch(`${API_URL}/comments`, {
 					method: 'POST',
 					headers: {
@@ -39,6 +41,7 @@
 				console.log(error.message);
 			} finally {
 				comment = '';
+				isLoading = false;
 				getComments();
 			}
 		} else {
@@ -64,7 +67,11 @@
 			type="submit"
 			class={isNull ? 'opacity-0 pointer-events-none' : 'opacity-100 pointer-events-auto'}
 		>
-			<i class="fas fa-fw fa-paper-plane text-xl text-gray-400" />
+			<i
+				class="fas fa-fw {isLoading
+					? 'fa-spin fa-spinner'
+					: 'fa-paper-plane'} text-xl text-gray-400"
+			/>
 		</button>
 	</div>
 </form>
