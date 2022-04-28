@@ -7,12 +7,14 @@
 	let message,
 		hint,
 		isNull = true,
+		isLoading = false,
 		hasSent = false;
 
 	const sendMessage = async () => {
 		if (message) {
 			try {
 				isNull = true;
+				isLoading = true;
 				await fetch(`${API_URL}/messages`, {
 					method: 'POST',
 					headers: {
@@ -33,6 +35,7 @@
 				message = '';
 				hint = '';
 				hasSent = true;
+				isLoading = false;
 				setTimeout(() => {
 					hasSent = false;
 				}, 3000);
@@ -67,8 +70,14 @@
 				? 'opacity-80 disabled:cursor-not-allowed'
 				: 'opacity-100'} w-full py-2 rounded-lg text-white"
 			type="submit"
-			disabled={isNull}>Send</button
+			disabled={isNull}
 		>
+			{#if isLoading}
+				<i class="far fa-fw fa-spin fa-spinner" />
+			{:else}
+				Send
+			{/if}
+		</button>
 	</form>
 </div>
 {#if hasSent}

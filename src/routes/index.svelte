@@ -14,6 +14,7 @@
 	let username,
 		isNull = true,
 		hasError = false,
+		isLoading = false,
 		lobbyID;
 
 	if (LOBBY_ID) {
@@ -26,6 +27,7 @@
 			// Send data to API
 			try {
 				isNull = true;
+				isLoading = true;
 				const request = await fetch(`${API_URL}/lobbies`, {
 					method: 'POST',
 					headers: {
@@ -51,6 +53,7 @@
 					hasLobby.set(true);
 					await goto(`/lobby/${lobbyID}`);
 				}
+				isLoading = false;
 			} catch (error) {
 				console.log(error.status);
 			}
@@ -87,8 +90,14 @@
 						? 'opacity-80 disabled:cursor-not-allowed'
 						: 'opacity-100'}"
 					type="submit"
-					disabled={isNull}>Register</button
+					disabled={isNull}
 				>
+					{#if isLoading}
+						<i class="far fa-fw fa-spin fa-spinner" />
+					{:else}
+						Register
+					{/if}
+				</button>
 			</form>
 		</div>
 		<div class="flex justify-center items-center flex-col">
