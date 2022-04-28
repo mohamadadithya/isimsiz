@@ -130,7 +130,7 @@
 				</li>
 			</ul>
 		</div>
-		<p class="text-center text-sm mt-8 text-gray-500">
+		<p class="text-center text-sm mt-8 pb-10 md:pb-0 text-gray-500">
 			&copy; 2022 | Made with <i class="far fa-fw fa-heart" /> by
 			<a href="https://www.m-adithya.my.id" class="font-bold">Mohamad Adithya</a>
 		</p>
