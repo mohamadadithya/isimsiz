@@ -2,6 +2,7 @@
 	import { hasLobby } from '../stores/lobbyStore';
 	import { get } from 'svelte/store';
 	import Comment from './Comment.svelte';
+	import moment from 'moment';
 
 	export let comments;
 	export let message;
@@ -16,7 +17,7 @@
 </script>
 
 <div class="p-4 shadow-md rounded-lg mb-5">
-	<div class="flex justify-between items-center mb-1">
+	<div class="flex justify-between items-center mb-2">
 		<p>{message.attributes.message}</p>
 		{#if userHasLobby}
 			<button on:click>
@@ -24,6 +25,7 @@
 			</button>
 		{/if}
 	</div>
+	<p class="text-xs text-gray-500">{moment(message.attributes.createdAt).fromNow()}</p>
 	{#if hint}
 		<p class="text-xs text-yellow-600">Hint: {message.attributes.hint}</p>
 	{/if}
