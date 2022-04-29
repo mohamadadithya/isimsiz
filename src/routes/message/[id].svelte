@@ -37,7 +37,6 @@
 
 	const lobby = filteredLobby[0];
 	let username = lobby.attributes.username;
-
 	let userHasLobby = get(hasLobby);
 
 	const getNewMessages = async () => {
@@ -52,8 +51,11 @@
 			.filter((message) => message.attributes.lobby_id == lobbyID);
 	};
 
+	let isLoading = false;
+
 	const deleteMessage = async (messageID) => {
 		try {
+			isLoading = true;
 			await fetch(`${API_URL}/messages/${messageID}`, {
 				method: 'DELETE',
 				headers: {
@@ -75,6 +77,7 @@
 		} catch (error) {
 			console.log(error.message);
 		} finally {
+			isLoading = false;
 			getNewMessages();
 		}
 	};
@@ -93,7 +96,7 @@
 		<div>
 			{#if filteredMessages.length > 0}
 				{#each filteredMessages as message}
-					<Message {message} {comments} on:click={() => deleteMessage(message.id)} />
+					<Message {message} {comments} {isLoading} on:click={() => deleteMessage(message.id)} />
 				{/each}
 			{:else}
 				<p>No messages yet...</p>

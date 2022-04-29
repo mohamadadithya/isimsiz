@@ -4,8 +4,7 @@
 	import Comment from './Comment.svelte';
 	import moment from 'moment';
 
-	export let comments;
-	export let message;
+	export let comments, message, isLoading;
 
 	let messageID = message.id;
 	let hint = message.attributes.hint;
@@ -17,17 +16,20 @@
 </script>
 
 <div class="p-4 shadow-md rounded-lg mb-5">
-	<div class="flex justify-between items-center mb-2">
+	<div class="flex justify-between items-center mb-1.5">
 		<p>{message.attributes.message}</p>
 		{#if userHasLobby}
 			<button on:click>
-				<i class="far fa-fw fa-times" />
+				<i class="far fa-fw {isLoading ? 'fa-spin fa-spinner' : 'fa-times'}" />
 			</button>
 		{/if}
 	</div>
-	<p class="text-xs text-gray-500">{moment(message.attributes.createdAt).fromNow()}</p>
 	{#if hint}
-		<p class="text-xs text-yellow-600">Hint: {message.attributes.hint}</p>
+		<p class="text-xs text-yellow-600 mb-2">
+			<span class="font-bold">Hint:</span>
+			{message.attributes.hint}
+		</p>
 	{/if}
+	<p class="text-xs text-gray-500">{moment(message.attributes.createdAt).fromNow()}</p>
 	<Comment {messageID} {filteredComments} />
 </div>
